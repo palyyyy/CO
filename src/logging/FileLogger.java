@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FileLogger implements ILogger {
-    private PrintWriter logFile;
+    private PrintWriter WriteFile;
 
     public FileLogger(String logFilePath) {
         try {
-            this.logFile = new PrintWriter(new FileWriter(logFilePath));
+            this.WriteFile = new PrintWriter(new FileWriter(logFilePath));
         } catch (IOException e) {
             System.out.println("Error opening the file.");
             e.printStackTrace();
@@ -18,23 +18,23 @@ public class FileLogger implements ILogger {
 
     @Override
     public void write(long value) {
-        logFile.println(value);
+        WriteFile.println(value);
     }
 
     @Override
     public void write(String value) {
-        logFile.println(value);
+        WriteFile.println(value);
     }
 
     @Override
     public void write(Object... values) {
         for (Object value : values) {
-            logFile.println(value + " ");
+            WriteFile.println(value + " ");
         }
     }
 
     @Override
     public void close() {
-        logFile.close();
+        WriteFile.close();
     }
 }
