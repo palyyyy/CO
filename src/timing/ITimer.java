@@ -1,14 +1,29 @@
 package timing;
 
 public interface ITimer {
-    public long totalTime = 0;
-    public long start = 0;
 
-    void start();
+    /**
+     * Starts the timer.
+     */
+    public void start();
 
-    long stop();
+    /**
+     * Stops the timer and returns the total elapsed time in nanoseconds.
+     *
+     * @return long - total time.
+     */
+    public long stop();
 
-    void resume();
+    /**
+     * Resumes the timer from the point it was paused.
+     * Resets the start timer.
+     */
+    public void resume();
 
-    long pause();
+    /**
+     * Pauses the timer and returns the elapsed time in nanoseconds up to this point.
+     *
+     * @return long - end time -start time.
+     */
+    public long pause();
 }

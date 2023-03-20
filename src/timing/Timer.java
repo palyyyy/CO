@@ -1,35 +1,49 @@
 package timing;
 
-public class Timer implements ITimer {
-    private long totalTime = 0;
-    private long start;
+public class Timer implements ITimer{
 
+    private long totalTime, start, end ;
+
+    /**
+     * Starts the timer
+     */
     @Override
     public void start() {
-        start = System.nanoTime();
+        totalTime = 0;
+         start = System.nanoTime();
+
+
     }
 
+    /**
+     * @return the time elapsed since start and stops the timer
+     */
     @Override
     public long stop() {
-        if (totalTime == 0) {
-            return System.nanoTime() - start;
-        }
-        totalTime += System.nanoTime() - start;
+
+        end = System.nanoTime();
+        totalTime += end - start;
         return totalTime;
+
     }
 
+    /**
+     * resumes i suppose
+     */
     @Override
     public void resume() {
         start = System.nanoTime();
+
     }
 
+    /**
+     * @return the time elapsed since and pauses the timer
+     */
     @Override
     public long pause() {
-        long end = System.nanoTime();
-        long elapsedTime = end - start;
+        end = System.nanoTime();
+        totalTime += end - start;
+        return end - start;
 
-        totalTime += elapsedTime;
-
-        return elapsedTime;
     }
 }

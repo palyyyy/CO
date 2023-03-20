@@ -1,40 +1,57 @@
 package logging;
+import java.io.*; // for exception and printwritter
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+public class FileLogger implements ILog {
+    private PrintWriter writer;
 
-public class FileLogger implements ILogger {
-    private PrintWriter WriteFile;
-
-    public FileLogger(String logFilePath) {
-        try {
-            this.WriteFile = new PrintWriter(new FileWriter(logFilePath));
-        } catch (IOException e) {
-            System.out.println("Error opening the file.");
-            e.printStackTrace();
-        }
+    public FileLogger(String fileName) throws FileNotFoundException {
+        writer = new PrintWriter(new FileOutputStream(fileName, true));
     }
 
-    @Override
     public void write(long value) {
-        WriteFile.println(value);
+        writer.print(value);
     }
 
-    @Override
     public void write(String value) {
-        WriteFile.println(value);
+        writer.print(value);
     }
 
-    @Override
     public void write(Object... values) {
         for (Object value : values) {
-            WriteFile.println(value + " ");
+            writer.print(value + " "); // uses tostring for each object
         }
     }
 
-    @Override
     public void close() {
-        WriteFile.close();
+        writer.close();
+    }
+
+    /**
+     * @param value
+     * @param unit
+     */
+    @Override
+    public void writeTime(long value, TimeUnit.timeUnit unit) {
+
+    }
+
+    /**
+     * @param string
+     * @param value
+     * @param unit
+     */
+    @Override
+    public void writeTime(String string, long value, TimeUnit.timeUnit unit) {
+
+    }
+}
+
+class Testing{
+    public static void main(String[] args) throws FileNotFoundException {
+        FileLogger fileLogger = new FileLogger("logk.txt");
+        fileLogger.write(1);
+        fileLogger.write(2);
+        fileLogger.write(3);
+        fileLogger.close();
     }
 }
