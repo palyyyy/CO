@@ -1,0 +1,42 @@
+import org.junit.Assert;
+import org.junit.Test;
+
+public class IntervalTest {
+
+    @Test
+    public void testCreate() {
+        Interval interval = Interval.create(IntervalType.OPEN, 2, 5);
+        Assert.assertNotNull(interval);
+        Assert.assertEquals(IntervalType.OPEN, interval.getType());
+        Assert.assertEquals(2, interval.getLeft());
+        Assert.assertEquals(5, interval.getRight());
+    }
+
+    @Test(expected = IncorrectIntervalException.class)
+    public void testCreateWithInvalidInterval() {
+        Interval.create(IntervalType.CLOSED, 5, 2);
+    }
+
+    @Test
+    public void testContains() {
+        Interval interval = Interval.create(IntervalType.CLOSED, 2, 5);
+        Assert.assertTrue(interval.contains(2));
+        Assert.assertTrue(interval.contains(3));
+        Assert.assertTrue(interval.contains(5));
+        Assert.assertFalse(interval.contains(1));
+        Assert.assertFalse(interval.contains(6));
+    }
+
+    @Test
+    public void testContainsOpenInterval() {
+        Interval interval = Interval.create(IntervalType.OPEN, 2, 5);
+        Assert.assertFalse(interval.contains(2));
+        Assert.assertTrue(interval.contains(3));
+        Assert.assertFalse(interval.contains(5));
+        Assert.assertFalse(interval.contains(1));
+        Assert.assertFalse(interval.contains(6));
+    }
+
+    // Add more test cases for other interval types if needed
+
+}
